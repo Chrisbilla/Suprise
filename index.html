@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Only For You ❤️</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    min-height:100vh;
+    overflow:hidden;
+    font-family:Georgia,"Times New Roman",serif;
+    background:#050208;
+    color:white;
+}
+
+/* ================= BACKGROUND ================= */
+
+body::before{
+    content:"";
+    position:fixed;
+    inset:-50%;
+    background:
+        radial-gradient(circle at 30% 40%,rgba(255,0,100,.18),transparent 25%),
+        radial-gradient(circle at 70% 60%,rgba(120,0,255,.16),transparent 25%);
+    animation:bgMove 10s ease-in-out infinite alternate;
+}
+
+@keyframes bgMove{
+    from{transform:rotate(0deg) scale(1)}
+    to{transform:rotate(8deg) scale(1.15)}
+}
+
+/* Stars */
+
+.star{
+    position:fixed;
+    width:2px;
+    height:2px;
+    background:white;
+    border-radius:50%;
+    opacity:.7;
+    animation:twinkle 2s infinite alternate;
+}
+
+@keyframes twinkle{
+    from{opacity:.15;transform:scale(.5)}
+    to{opacity:1;transform:scale(1.5)}
+}
+
+/* ================= START SCREEN ================= */
+
+.start{
+    position:fixed;
+    inset:0;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    z-index:10;
+    transition:1s;
+}
+
+.start.hide{
+    opacity:0;
+    transform:scale(1.5);
+    pointer-events:none;
+}
+
+.start small{
+    letter-spacing:5px;
+    opacity:.5;
+    margin-bottom:25px;
+}
+
+.start h1{
+    font-size:clamp(35px,8vw,70px);
+    letter-spacing:3px;
+    text-shadow:
+        0 0 10px #ff2f79,
+        0 0 35px #ff2f79,
+        0 0 70px #ff2f79;
+}
+
+.start p{
+    margin-top:18px;
+    opacity:.65;
+}
+
+.start button{
+    margin-top:40px;
+    padding:16px 35px;
+    border:1px solid rgba(255,255,255,.3);
+    border-radius:50px;
+    background:rgba(255,255,255,.08);
+    color:white;
+    font-size:16px;
+    cursor:pointer;
+    backdrop-filter:blur(10px);
+    transition:.4s;
+}
+
+.start button:hover{
+    transform:scale(1.1);
+    background:rgba(255,50,120,.25);
+    box-shadow:0 0 30px rgba(255,40,120,.5);
+}
+
+/* ================= HEART ================= */
+
+.heart-stage{
+    position:fixed;
+    inset:0;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    z-index:5;
+    opacity:0;
+    pointer-events:none;
+    transition:1s;
+}
+
+.heart-stage.show{
+    opacity:1;
+}
+
+.big-heart{
+    width:150px;
+    height:150px;
+    position:relative;
+    transform:rotate(-45deg);
+    background:linear-gradient(135deg,#ff1768,#ff004c);
+    box-shadow:
+        0 0 30px #ff1768,
+        0 0 80px #ff1768,
+        0 0 150px rgba(255,0,90,.7);
+    animation:heartBeat 1.2s infinite;
+}
+
+.big-heart::before,
+.big-heart::after{
+    content:"";
+    position:absolute;
+    width:150px;
+    height:150px;
+    border-radius:50%;
+    background:inherit;
+}
+
+.big-heart::before{
+    top:-75px;
+    left:0;
+}
+
+.big-heart::after{
+    left:75px;
+    top:0;
+}
+
+@keyframes heartBeat{
+    0%,100%{transform:rotate(-45deg) scale(1)}
+    50%{transform:rotate(-45deg) scale(1.12)}
+}
+
+.heart-text{
+    position:absolute;
+    z-index:5;
+    text-align:center;
+    width:100%;
+    pointer-events:none;
+}
+
+.heart-text h2{
+    font-size:25px;
+    text-shadow:0 0 15px white;
+}
+
+.heart-text p{
+    margin-top:8px;
+    opacity:.8;
+}
+
+/* ================= QUESTION ================= */
+
+.question{
+    position:fixed;
+    inset:0;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    z-index:20;
+    opacity:0;
+    pointer-events:none;
+    transition:1s;
+}
+
+.question.show{
+    opacity:1;
+    pointer-events:auto;
+}
+
+.question h2{
+    font-size:clamp(28px,6vw,55px);
+    max-width:800px;
+}
+
+.question p{
+    margin-top:15px;
+    opacity:.65;
+}
+
+.buttons{
+    margin-top:35px;
+    display:flex;
+    gap:20px;
+}
+
+.buttons button{
+    padding:14px 32px;
+    border-radius:40px;
+    border:1px solid rgba(255,255,255,.3);
+    background:rgba(255,255,255,.08);
+    color:white;
+    font-size:16px;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.buttons button:hover{
+    transform:scale(1.1);
+    background:#ff1768;
+}
+
+/* ================= LETTER ================= */
+
+.letter-stage{
+    position:fixed;
+    inset:0;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    z-index:30;
+    opacity:0;
+    pointer-events:none;
+    transition:1s;
+    background:rgba(5,0,8,.7);
+    backdrop-filter:blur(12px);
+}
+
+.letter-stage.show{
+    opacity:1;
+    pointer-events:auto;
+}
+
+.letter{
+    width:min(90%,520px);
+    min-height:570px;
+    padding:45px 35px;
+    border-radius:25px;
+
+    background:
+        linear-gradient(145deg,#fffdfd,#ffeaf2);
+
+    color:#471427;
+
+    box-shadow:
+        0 30px 100px rgba(0,0,0,.7),
+        0 0 60px rgba(255,30,110,.25);
+
+    position:relative;
+    transform:rotateY(90deg) scale(.7);
+    transition:1s;
+    cursor:pointer;
+}
+
+.letter-stage.show .letter{
+    transform:rotateY(0) scale(1);
+}
+
+.letter::before{
+    content:"";
+    position:absolute;
+    inset:15px;
+    border:1px solid rgba(180,40,90,.18);
+    border-radius:18px;
+    pointer-events:none;
+}
+
+.letter-top{
+    text-align:center;
+    color:#bd315c;
+    letter-spacing:5px;
+    font-size:12px;
+}
+
+.letter h1{
+    text-align:center;
+    color:#d51e5c;
+    font-size:48px;
+    margin:25px 0;
+}
+
+.letter p{
+    font-size:17px;
+    line-height:1.8;
+    text-align:center;
+}
+
+.letter .hint{
+    margin-top:30px;
+    text-align:center;
+    font-size:12px;
+    opacity:.5;
+}
+
+/* ================= FINAL ================= */
+
+.final{
+    position:fixed;
+    inset:0;
+    z-index:100;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+
+    background:
+        radial-gradient(circle,#661238,#15030e 65%);
+
+    opacity:0;
+    visibility:hidden;
+    transition:1.5s;
+}
+
+.final.show{
+    opacity:1;
+    visibility:visible;
+}
+
+.final-content{
+    animation:finalIn 1.5s cubic-bezier(.2,.8,.2,1);
+}
+
+.final-heart{
+    font-size:90px;
+    animation:heartBeat 1s infinite;
+}
+
+.final h1{
+    font-size:clamp(45px,12vw,100px);
+    margin:20px 0;
+    text-shadow:
+        0 0 20px #ff2f79,
+        0 0 60px #ff2f79;
+}
+
+.final p{
+    font-size:20px;
+    line-height:1.8;
+    color:#ffe6ef;
+}
+
+@keyframes finalIn{
+    from{
+        transform:scale(.3);
+        opacity:0;
+    }
+    to{
+        transform:scale(1);
+        opacity:1;
+    }
+}
+
+/* ================= FLOATING HEARTS ================= */
+
+.float-heart{
+    position:fixed;
+    bottom:-30px;
+    z-index:2;
+    pointer-events:none;
+    animation:floatUp linear forwards;
+}
+
+@keyframes floatUp{
+    0%{
+        transform:translateY(0) scale(.5);
+        opacity:0;
+    }
+
+    15%{
+        opacity:1;
+    }
+
+    100%{
+        transform:translateY(-110vh) scale(1.5) rotate(30deg);
+        opacity:0;
+    }
+}
+
+/* ================= MOBILE ================= */
+
+@media(max-width:600px){
+
+    .big-heart,
+    .big-heart::before,
+    .big-heart::after{
+        width:110px;
+        height:110px;
+    }
+
+    .big-heart::before{
+        top:-55px;
+    }
+
+    .big-heart::after{
+        left:55px;
+    }
+
+    .letter{
+        min-height:530px;
+        padding:35px 25px;
+    }
+
+    .letter h1{
+        font-size:40px;
+    }
+
+    .letter p{
+        font-size:16px;
+        line-height:1.7;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- STARS -->
+
+<script>
+
+for(let i=0;i<100;i++){
+
+    const star=document.createElement("div");
+
+    star.className="star";
+
+    star.style.left=Math.random()*100+"vw";
+    star.style.top=Math.random()*100+"vh";
+
+    star.style.animationDelay=Math.random()*2+"s";
+
+    document.body.appendChild(star);
+}
+
+</script>
+
+
+<!-- START -->
+
+<section class="start" id="start">
+
+    <small>PRIVATE MESSAGE</small>
+
+    <h1>Hey You My Love... ❤️</h1>
+
+    <p>
+        I made something that exists only for you.
+    </p>
+
+    <button onclick="startExperience()">
+        Open My Heart ❤️
+    </button>
+
+</section>
+
+
+<!-- HEART -->
+
+<section class="heart-stage" id="heartStage">
+
+    <div class="big-heart"></div>
+
+    <div class="heart-text">
+
+        <h2>YOU</h2>
+
+        <p>are the reason behind this...</p>
+
+    </div>
+
+</section>
+
+
+<!-- QUESTION -->
+
+<section class="question" id="question">
+
+    <h2>
+        Do you know how special you are to me? ❤️
+    </h2>
+
+    <p>
+        Think carefully...
+    </p>
+
+    <div class="buttons">
+
+        <button onclick="answerYes()">
+            Yes ❤️
+        </button>
+
+        <button onclick="answerYes()">
+            Maybe? 🥺
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- LETTER -->
+
+<section class="letter-stage" id="letterStage">
+
+    <div class="letter" onclick="openLetter()">
+
+        <div class="letter-top">
+            A LETTER FROM MY HEART
+        </div>
+
+        <h1>❤️</h1>
+
+        <p id="letterText">
+
+            Tum meri life ka woh person ho
+            jiske saath main sirf happy moments nahi,
+            balki apni ordinary life bhi share karna chahta hoon.
+
+            <br><br>
+
+            Tumhare saath baat karna,
+            tumhari smile dekhna,
+            aur tumhare saath random si baatein karna...
+
+            somehow everything feels different.
+
+            <br><br>
+
+            Shayad main har baar words mein express nahi kar pata,
+            but you mean more to me than you probably know.
+
+        </p>
+
+        <div class="hint">
+            Tap the letter ❤️
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- FINAL -->
+
+<section class="final" id="final">
+
+    <div class="final-content">
+
+        <div class="final-heart">
+            ❤️
+        </div>
+
+        <h1>I LOVE YOU</h1>
+
+        <p>
+
+            Tum meri life ka sirf ek chapter nahi ho...
+
+            <br>
+
+            tum woh story ho jise main kabhi end nahi karna chahta.
+
+            <br><br>
+
+            Aur agar mujhe tumhe dobara choose karna pade...
+
+            <br>
+
+            <strong>
+                main har baar tumhe hi choose karunga. ❤️
+            </strong>
+
+        </p>
+
+    </div>
+
+</section>
+
+
+<script>
+
+/* ================= START ================= */
+
+function startExperience(){
+
+    document
+        .getElementById("start")
+        .classList.add("hide");
+
+    setTimeout(()=>{
+
+        document
+            .getElementById("heartStage")
+            .classList.add("show");
+
+        createHeartExplosion();
+
+    },700);
+
+
+    setTimeout(()=>{
+
+        document
+            .getElementById("heartStage")
+            .classList.remove("show");
+
+    },3000);
+
+
+    setTimeout(()=>{
+
+        document
+            .getElementById("question")
+            .classList.add("show");
+
+    },3600);
+}
+
+
+/* ================= ANSWER ================= */
+
+function answerYes(){
+
+    document
+        .getElementById("question")
+        .classList.remove("show");
+
+    setTimeout(()=>{
+
+        document
+            .getElementById("letterStage")
+            .classList.add("show");
+
+    },500);
+
+    createHeartExplosion();
+}
+
+
+/* ================= LETTER ================= */
+
+function openLetter(){
+
+    const letter =
+        document.querySelector(".letter");
+
+    letter.style.transform =
+        "scale(.9) rotate(-2deg)";
+
+    setTimeout(()=>{
+
+        document
+            .getElementById("letterStage")
+            .classList.remove("show");
+
+        setTimeout(()=>{
+
+            document
+                .getElementById("final")
+                .classList.add("show");
+
+            createMassiveHeartExplosion();
+
+        },700);
+
+    },500);
+}
+
+
+/* ================= FLOAT HEARTS ================= */
+
+function createFloatingHeart(){
+
+    const heart =
+        document.createElement("div");
+
+    heart.className="float-heart";
+
+    const list=[
+        "❤️",
+        "💗",
+        "💖",
+        "💕",
+        "💘",
+        "✨"
+    ];
+
+    heart.innerHTML =
+        list[Math.floor(Math.random()*list.length)];
+
+    heart.style.left =
+        Math.random()*100+"vw";
+
+    heart.style.fontSize =
+        (14+Math.random()*25)+"px";
+
+    heart.style.animationDuration =
+        (5+Math.random()*5)+"s";
+
+    document.body.appendChild(heart);
+
+    setTimeout(()=>{
+        heart.remove();
+    },10000);
+}
+
+setInterval(createFloatingHeart,500);
+
+
+/* ================= HEART EXPLOSION ================= */
+
+function createHeartExplosion(){
+
+    const symbols=[
+        "❤️",
+        "💗",
+        "💖",
+        "💕",
+        "💘",
+        "✨"
+    ];
+
+    for(let i=0;i<25;i++){
+
+        const heart =
+            document.createElement("div");
+
+        heart.className="float-heart";
+
+        heart.innerHTML =
+            symbols[
+                Math.floor(Math.random()*symbols.length)
+            ];
+
+        heart.style.left="50vw";
+
+        heart.style.bottom="50vh";
+
+        const angle =
+            Math.random()*Math.PI*2;
+
+        const distance =
+            100+Math.random()*300;
+
+        heart.style.transform=
+            `translate(${Math.cos(angle)*distance}px,
+             ${Math.sin(angle)*distance}px)`;
+
+        heart.style.animationDuration="1.5s";
+
+        document.body.appendChild(heart);
+
+        setTimeout(()=>{
+            heart.remove();
+        },1600);
+    }
+}
+
+
+/* ================= FINAL EXPLOSION ================= */
+
+function createMassiveHeartExplosion(){
+
+    const symbols=[
+        "❤️",
+        "💗",
+        "💖",
+        "💕",
+        "💘",
+        "✨",
+        "🥺"
+    ];
+
+    for(let i=0;i<80;i++){
+
+        setTimeout(()=>{
+
+            const heart =
+                document.createElement("div");
+
+            heart.className="float-heart";
+
+            heart.innerHTML =
+                symbols[
+                    Math.floor(Math.random()*symbols.length)
+                ];
+
+            heart.style.left =
+                Math.random()*100+"vw";
+
+            heart.style.bottom =
+                Math.random()*20+"vh";
+
+            heart.style.fontSize =
+                (15+Math.random()*35)+"px";
+
+            heart.style.animationDuration =
+                (3+Math.random()*4)+"s";
+
+            document.body.appendChild(heart);
+
+            setTimeout(()=>{
+                heart.remove();
+            },8000);
+
+        },i*40);
+
+    }
+}
+
+</script>
+
+</body>
+</html>
